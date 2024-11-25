@@ -1,0 +1,74 @@
+class Book:
+    def __init__(self, title, author, genre):
+        self.title = title
+        self.author = author
+        self.genre = genre
+
+    def __str__(self):
+        return f"{self.title} by {self.author} ({self.genre})"
+
+
+class BookCatalog:
+    def __init__(self):
+        self.books = []
+
+    def add_book(self, title, author, genre):
+        book = Book(title, author, genre)
+        self.books.append(book)
+        print(f"Added: {book}")
+
+    def display_books(self):
+        if not self.books:
+            print("No books in the catalog.")
+        else:
+            for book in self.books:
+                print(book)
+
+    def search_books(self, search_term):
+        found_books = [book for book in self.books if search_term.lower() in book.title.lower() or
+                       search_term.lower() in book.author.lower() or
+                       search_term.lower() in book.genre.lower()]
+
+        if not found_books:
+            print(f"No books found matching '{search_term}'.")
+        else:
+            print("Search Results:")
+            for book in found_books:
+                print(book)
+
+
+def main():
+    catalog = BookCatalog()
+
+    while True:
+        print("\nBook Catalog Menu:")
+        print("1. Add a book")
+        print("2. Display all books")
+        print("3. Search books")
+        print("4. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            title = input("Enter the title of the book: ")
+            author = input("Enter the author of the book: ")
+            genre = input("Enter the genre of the book: ")
+            catalog.add_book(title, author, genre)
+
+        elif choice == "2":
+            catalog.display_books()
+
+        elif choice == "3":
+            search_term = input("Enter search term (title, author, or genre): ")
+            catalog.search_books(search_term)
+
+        elif choice == "4":
+            print("Exiting program...")
+            break
+
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
